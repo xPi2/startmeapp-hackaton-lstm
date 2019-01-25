@@ -7,6 +7,7 @@ import colorsys
 import os
 from timeit import default_timer as timer
 from matplotlib import colors
+import requests
 
 import numpy as np
 from keras import backend as K
@@ -147,6 +148,11 @@ class YOLO(object):
             })
         # David function POST
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
+        data = {
+            "value": len(out_boxes),
+            "objeto": "patera"
+        }
+        r = requests.post('http://localhost:5000/post/8', json=data)
 
         font = ImageFont.truetype(font='Futura',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
