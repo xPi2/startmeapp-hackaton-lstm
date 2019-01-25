@@ -5,19 +5,21 @@ Class definition of YOLO_v3 style detection model on image and video
 
 import colorsys
 import os
-from timeit import default_timer as timer
 from matplotlib import colors
+import requests
+import cv2
+import json
+import base64
 
 import numpy as np
+from PIL import Image, ImageFont, ImageDraw
+from timeit import default_timer as timer
 from keras import backend as K
 from keras.utils import multi_gpu_model
 from keras.models import load_model
 from keras.layers import Input
-from PIL import Image, ImageFont, ImageDraw
-
 from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
-import os
 from keras.utils import multi_gpu_model
 
 class YOLO(object):
@@ -147,6 +149,11 @@ class YOLO(object):
             })
         # David function POST
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
+        data = {
+            "num_objects": len(out_boxes),
+            "objects": []
+        }
+        
 
         font = ImageFont.truetype(font='Futura',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
@@ -162,13 +169,16 @@ class YOLO(object):
                 label = '{} {:.2f}'.format(predicted_class, score)
             draw = ImageDraw.Draw(image)
             label_size = draw.textsize(label, font)
-
             top, left, bottom, right = box
             top = max(0, np.floor(top + 0.5).astype('int32'))
             left = max(0, np.floor(left + 0.5).astype('int32'))
             bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             print(label, (left, top), (right, bottom))
+
+            object_data = {'id': str(i)}
+            object_data['class_name'] = predicted_class
+            object_data['box'] = box.tolist()
 
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
@@ -187,8 +197,20 @@ class YOLO(object):
                 draw.text(text_origin, label, fill=(0,0,0), font=font)
             else:
                 draw.text(text_origin, label, fill=(255,255,255), font=font)
-            del draw
 
+
+            #from io import BytesIO
+            #buffered = BytesIO()
+            #image.save(buffered, format="JPEG")
+            #jpg_as_text = base64.b64encode(buffered.getvalue()).decode("utf-8") 
+            #object_data["image"] = jpg_as_text
+            data["objects"].append(object_data)
+            print(data)
+            #print("Posting this data:", data)
+            
+            del draw
+    
+        r = requests.post('http://localhost:5000/post/8', json=data)
         end = timer()
         print(end - start)
         return image
@@ -197,7 +219,6 @@ class YOLO(object):
         self.sess.close()
 
 def detect_video(yolo, webcam, video_path, output_path):
-    import cv2
     if webcam:
         vid = cv2.VideoCapture(0)
         output_path = ""

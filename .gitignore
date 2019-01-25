@@ -9,6 +9,9 @@ __pycache__/
 # C extensions
 *.so
 
+#Mac
+.DS_Store
+
 # Distribution / packaging
 .Python
 build/
@@ -105,3 +108,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+*.zip
+predict_outputs
+*.mp4
