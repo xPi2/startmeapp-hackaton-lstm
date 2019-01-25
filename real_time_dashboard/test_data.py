@@ -10,4 +10,4 @@ for x in range(50):
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
     time.sleep(1)
-    print(x)
+    print("Data sent: ", data)
