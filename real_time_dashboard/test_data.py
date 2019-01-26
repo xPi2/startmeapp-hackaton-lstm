@@ -3,11 +3,12 @@ import time
 
 import requests
 
-for x in range(50):
+for x in range(400):
     data = {
-        "value": random.randint(0, 3),
+        "value": random.randint(1, 2),
         "objeto": "patera"
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
-    time.sleep(1)
-    print("Data sent: ", data)
+    print(x)
+
+print("END!")

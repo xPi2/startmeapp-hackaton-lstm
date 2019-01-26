@@ -8,6 +8,7 @@ socket.on('graph_data', function(msg) {
     line_chart.tick(msg);
     bar_chart.update(msg)
     console.log(line_chart)
+    console.log(msg)
 });
 
 socket.on('map_data', function(msg) {

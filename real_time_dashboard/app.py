@@ -20,12 +20,17 @@ def index():
     global index_add_counter
     return render_template('index.html')
 
+@app.route('/char')
+def char():
+    global index_add_counter
+    return render_template('char.html')
+
 
 @app.route('/post/<value>', methods=['POST'])
 def post(value):
     global index_add_counter
     index_add_counter += 1
-    val = (request.get_json()['num_objects'])
+    val = (request.get_json()['value'])
     send_to_front(val)
     # TO DO Create send to socket for value of detections.
     return str(index_add_counter)
