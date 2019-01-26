@@ -8,6 +8,27 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
+
+          <title>Realtime Data Line Graph</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta charset='utf-8'/>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        #chart {
+            max-width: 600px;
+            max-height: 400px;
+        }
+    </style>
+
+
+
     <title>Dashboard Template for Bootstrap</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
         <script src="{{url_for('static', filename='internal/jquery.min.js')}}" defer></script>

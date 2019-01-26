@@ -184,6 +184,12 @@
 
 <div id="chart"></div>
 
+dasdsadsads
+
+
+
+
+
 <script>
     var lineArr = [];
     var MAX_LENGTH = 100;
@@ -212,8 +218,14 @@
 });
 
 socket.on('graph_data', function(msg) {
+    if (msg.value == 1032010){
+        console.log("HEHHEHEHEE")
+        clean_end()
+    }
     accumulative(msg.value)
 });
+
+
 
     var pat = 0
    var date = new Date();
@@ -229,7 +241,7 @@ socket.on('graph_data', function(msg) {
         var date = new Date();
         lineData = {
             time: date,
-            x: pat,
+            x: window.pat,
             y: 0,
             z: 0
         };
@@ -240,10 +252,25 @@ socket.on('graph_data', function(msg) {
         pat = 0
     }
 
+
+    function clean_end(){
+        console.log("END! :)")
+        pat=0
+        lineData = {
+            time: date,
+            x: window.pat,
+            y: 0,
+            z: 0
+        };
+        updateData()
+
+    }
+
     function updateData() {
 
         var now = new Date();
         lineData.time = now
+        lineData.x = pat
         lineArr.push(lineData);
         clean()
 
@@ -263,7 +290,7 @@ socket.on('graph_data', function(msg) {
 
     document.addEventListener("DOMContentLoaded", function () {
         seedData();
-        window.setInterval(updateData, 200);
+        window.setInterval(updateData, 400);
         d3.select("#chart").datum(lineArr).call(chart);
         d3.select(window).on('resize', resize);
     });

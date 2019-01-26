@@ -35,6 +35,19 @@ def post(value):
     # TO DO Create send to socket for value of detections.
     return str(index_add_counter)
 
+@app.route('/clean/', methods=['POST'])
+def clean():
+    clean_front()
+    return str("CLEAN!")
+
+@socketio.on('clean', namespace='/app')
+def clean_front():
+    emit('graph_data', {
+        'date': time.strftime("%a %m/%d/%Y"),
+        'time': time.strftime("%H:%M:%S"),
+        'value': 1032010
+    }, namespace='/app', broadcast=True)
+
 
 @socketio.on('message', namespace='/app')
 def send_to_front(value):
