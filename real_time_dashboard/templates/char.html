@@ -293,7 +293,7 @@ socket.on('graph_data', function(msg) {
 
     document.addEventListener("DOMContentLoaded", function () {
         seedData();
-        window.setInterval(updateData, 100);
+        window.setInterval(updateData, 1000);
         d3.select("#chart").datum(lineArr).call(chart);
         d3.select(window).on('resize', resize);
     });
