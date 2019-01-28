@@ -32,8 +32,7 @@ def post(value):
     index_add_counter += 1
     val = (request.get_json()['num_objects'])
     image = (request.get_json()['objects'])
-    if val != 0:
-        send_to_front(val)
+    send_to_front(val)
     # TO DO Create send to socket for value of detections.
     return str(index_add_counter)
 
