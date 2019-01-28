@@ -225,7 +225,8 @@ socket.on('graph_data', function(msg) {
     if (msg.value == 1032010){
         clean_end()
     }
-    accumulative(msg.value)
+    //accumulative(msg.value)
+    updateData(msg.value)
 });
 
 
@@ -269,11 +270,11 @@ socket.on('graph_data', function(msg) {
 
     }
 
-    function updateData() {
+    function updateData(value) {
 
         var now = new Date();
         lineData.time = now
-        lineData.x = pat
+        lineData.x = value
         lineArr.push(lineData);
         clean()
 
@@ -293,7 +294,7 @@ socket.on('graph_data', function(msg) {
 
     document.addEventListener("DOMContentLoaded", function () {
         seedData();
-        window.setInterval(updateData, 1000);
+        window.setInterval(updateData, 800);
         d3.select("#chart").datum(lineArr).call(chart);
         d3.select(window).on('resize', resize);
     });
