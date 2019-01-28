@@ -31,7 +31,8 @@ def post(value):
     global index_add_counter
     index_add_counter += 1
     val = (request.get_json()['value'])
-    send_to_front(val)
+    if val != 0:
+        send_to_front(val)
     # TO DO Create send to socket for value of detections.
     return str(index_add_counter)
 
