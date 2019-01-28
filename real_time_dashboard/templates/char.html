@@ -21,6 +21,7 @@
 </head>
 <body>
 
+
 <script>
 
     function realTimeLineChart() {
@@ -55,11 +56,11 @@
       })).getTime() - (duration*2));
 
       x.domain([xMin, xMax]);
-      /*y.domain([
+      y.domain([
         d3.min(data, function(c) { return d3.min(c.values, function(d) { return d.value; })}),
         d3.max(data, function(c) { return d3.max(c.values, function(d) { return d.value; })})
-      ]);*/
-      y.domain([0,60])
+      ]);
+      //y.domain([0,60])
       z.domain(data.map(function(c) { return c.label; }));
 
       var line = d3.line()
@@ -187,7 +188,7 @@
 
 <div id="chart"></div>
 
-dasdsadsads
+
 
 
 
@@ -222,7 +223,6 @@ dasdsadsads
 
 socket.on('graph_data', function(msg) {
     if (msg.value == 1032010){
-        console.log("HEHHEHEHEE")
         clean_end()
     }
     accumulative(msg.value)
@@ -239,8 +239,8 @@ socket.on('graph_data', function(msg) {
             z: 0,
         };
 
-    function accumulative(  ) {
-        pat = pat+1
+    function accumulative(value) {
+        pat = pat+value
         var date = new Date();
         lineData = {
             time: date,
