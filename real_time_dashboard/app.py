@@ -30,7 +30,7 @@ def char():
 def post(value):
     global index_add_counter
     index_add_counter += 1
-    val = (request.get_json()['num_object'])
+    val = (request.get_json()['num_objects'])
     image = (request.get_json()['objects'])
     if val != 0:
         send_to_front(val)
