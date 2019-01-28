@@ -272,6 +272,7 @@ socket.on('graph_data', function(msg) {
 
     function updateData(value) {
 
+        console.log(value)
         var now = new Date();
         lineData.time = now
         lineData.x = value
@@ -294,7 +295,7 @@ socket.on('graph_data', function(msg) {
 
     document.addEventListener("DOMContentLoaded", function () {
         seedData();
-        window.setInterval(updateData, 800);
+        // window.setInterval(updateData, 800);
         d3.select("#chart").datum(lineArr).call(chart);
         d3.select(window).on('resize', resize);
     });
