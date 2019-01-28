@@ -33,7 +33,7 @@
   function chart(selection) {
     // Based on https://bl.ocks.org/mbostock/3884955
     selection.each(function(data) {
-      data = ["x", "y", "z"].map(function(c) {
+      data = ["x",].map(function(c) {
         return {
           label: c,
           values: data.map(function(d) {
@@ -47,16 +47,19 @@
           y = d3.scaleLinear().rangeRound([height-margin.top-margin.bottom, 0]),
           z = d3.scaleOrdinal(color);
 
+
+
       var xMin = d3.min(data, function(c) { return d3.min(c.values, function(d) { return d.time; })});
       var xMax = new Date(new Date(d3.max(data, function(c) {
         return d3.max(c.values, function(d) { return d.time; })
       })).getTime() - (duration*2));
 
       x.domain([xMin, xMax]);
-      y.domain([
+      /*y.domain([
         d3.min(data, function(c) { return d3.min(c.values, function(d) { return d.value; })}),
         d3.max(data, function(c) { return d3.max(c.values, function(d) { return d.value; })})
-      ]);
+      ]);*/
+      y.domain([0,60])
       z.domain(data.map(function(c) { return c.label; }));
 
       var line = d3.line()
@@ -290,9 +293,9 @@ socket.on('graph_data', function(msg) {
 
     document.addEventListener("DOMContentLoaded", function () {
         seedData();
-        window.setInterval(updateData, 400);
+        window.setInterval(updateData, 100);
         d3.select("#chart").datum(lineArr).call(chart);
-        d3.select(window).on('resize', resize);
+        //d3.select(window).on('resize', resize);
     });
 </script>
 

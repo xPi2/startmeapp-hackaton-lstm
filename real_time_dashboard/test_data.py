@@ -11,25 +11,30 @@ for x in range(1000):
     r = requests.post('http://localhost:5000/post/8', json=data)
     print(x)
 
-time.sleep(5)
+for x in range(500):
+    data = {
+        "value": 0,
+        "objeto": "patera"
+    }
+    r = requests.post('http://localhost:5000/post/8', json=data)
+    print(x)
+
+for x in range(700):
+    data = {
+        "value": 1,
+        "objeto": "patera"
+    }
+    r = requests.post('http://localhost:5000/post/8', json=data)
+    print(x)
 
 for x in range(300):
     data = {
-        "value": 3,
+        "value": 0,
         "objeto": "patera"
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
     print(x)
 
-
-time.sleep(2)
-for x in range(500):
-    data = {
-        "value": 3,
-        "objeto": "patera"
-    }
-    r = requests.post('http://localhost:5000/post/8', json=data)
-    print(x)
 
 print("END!")
 
