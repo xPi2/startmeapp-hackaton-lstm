@@ -10,6 +10,7 @@ import requests
 import cv2
 import json
 import base64
+import io
 
 import numpy as np
 from PIL import Image, ImageFont, ImageDraw
@@ -147,12 +148,7 @@ class YOLO(object):
                 self.input_image_shape: [image.size[1], image.size[0]],
                 K.learning_phase(): 0
             })
-        # David function POST
-        print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
-        data = {
-            "num_objects": len(out_boxes),
-            "objects": []
-        }
+
         
 
         font = ImageFont.truetype(font='Futura',
@@ -197,19 +193,17 @@ class YOLO(object):
                 draw.text(text_origin, label, fill=(0,0,0), font=font)
             else:
                 draw.text(text_origin, label, fill=(255,255,255), font=font)
-
-
-            #from io import BytesIO
-            #buffered = BytesIO()
-            #image.save(buffered, format="JPEG")
-            #jpg_as_text = base64.b64encode(buffered.getvalue()).decode("utf-8") 
-            #object_data["image"] = jpg_as_text
-            data["objects"].append(object_data)
-            print(data)
-            #print("Posting this data:", data)
-            
             del draw
-    
+
+        encode_img = str(base64.b64encode(image.tobytes()))
+        # print(encode_img)
+        print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
+        # David function POST
+        data = {
+            "num_objects": len(out_boxes),
+            "frame": encode_img 
+        }
+
         r = requests.post('http://localhost:5000/post/8', json=data)
         end = timer()
         print(end - start)
@@ -224,6 +218,8 @@ def detect_video(yolo, webcam, video_path, output_path):
         output_path = ""
     else:
         vid = cv2.VideoCapture(video_path)
+        #To avoid output_path
+        output_path = ""
     if not vid.isOpened():
         raise IOError("Couldn't open webcam or video")
     video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
