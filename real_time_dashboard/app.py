@@ -6,8 +6,6 @@ from random import randint, choice
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 
-from utils import GetLatLon, get_antonyms, get_synonyms
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 socketio = SocketIO(app)
@@ -32,9 +30,7 @@ def post(value):
     index_add_counter += 1
     val = (request.get_json()['num_objects'])
     image = (request.get_json()['frame'])
-    # print(image)
     send_to_front(val, image)
-    # TO DO Create send to socket for value of detections.
     return str(index_add_counter)
 
 @app.route('/clean/', methods=['POST'])
@@ -75,42 +71,6 @@ def message():
         'value': 0
     })
 
-genLatLon = GetLatLon('static/countries-capitals.json')
-
-
-@socketio.on('google_map', namespace='/app')
-def google_map():
-    emit('map_data', genLatLon.__next__())
-
-
-@socketio.on('input_broadcast_event', namespace='/app')
-def word_cloud_broadcast(msg):
-    emit('input_broadcast', {'data': msg['data']})
-
-
-@socketio.on('input_event', namespace='/app')
-def word_cloud(msg):
-    print(msg)
-    if len(msg['data'].split()) == 1:
-        limit = 20  # Not more than `limit` antonyms and synonyms
-        antonyms = get_antonyms(msg['data'], limit)
-        synonyms = get_synonyms(msg['data'], limit)
-        words = list(map(lambda x: {'text': x, 'flag': 1, 'size': randint(10, 50)}, synonyms))
-        words.extend(list(map(lambda x: {'text': x, 'size': randint(10, 50)}, antonyms)))
-    else:
-        words = list(map(lambda x: {'text': x, 'flag': choice([0, 1]), 'size': randint(10, 50)},
-                         re.findall("[a-zA-Z\d]+", msg['data'])))
-    emit('input', {'words': words})
-
-
-@socketio.on('input_broadcast_event', namespace='/app')
-def test_message(msg):
-    emit('input_broadcast', {'data': msg['data']}, broadcast=True)
-
-
-@socketio.on('disconnect', namespace='/app')
-def disconnect():
-    print('Client disconnected!')
 
 
 if __name__ == '__main__':
