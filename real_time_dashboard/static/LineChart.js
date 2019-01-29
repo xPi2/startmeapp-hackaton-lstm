@@ -12,7 +12,7 @@ var LineChart = function () {
     self.data_collector = [];
 
     this.init = function () {
-        var height = 400 - margin.top - margin.bottom;
+        var height = 500 - margin.top - margin.bottom;
         var width = parseInt($(self._selector).css('width')) - margin.left - margin.right;
 
         self.x = d3.time.scale().range([0, width]);
