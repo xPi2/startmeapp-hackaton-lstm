@@ -31,9 +31,9 @@ def post(value):
     global index_add_counter
     index_add_counter += 1
     val = (request.get_json()['num_objects'])
-    image = (request.get_json()['objects'])
-    if val != 0:
-        send_to_front(val)
+    image = (request.get_json()['frame'])
+    # print(image)
+    send_to_front(val, image)
     # TO DO Create send to socket for value of detections.
     return str(index_add_counter)
 
@@ -52,11 +52,12 @@ def clean_front():
 
 
 @socketio.on('message', namespace='/app')
-def send_to_front(value):
+def send_to_front(value, frame):
     emit('graph_data', {
         'date': time.strftime("%a %m/%d/%Y"),
         'time': time.strftime("%H:%M:%S"),
-        'value': value
+        'value': value,
+        'frame': frame
     }, namespace='/app', broadcast=True)
 
 
