@@ -238,6 +238,9 @@ socket.on('graph_data', function(msg) {
 
     function accumulative(value) {
         pat = pat+value
+        framewithsupp = 'data:image/jpeg;base64,' +(frame);
+
+        document.getElementsByClassName('holderframe')[0].src= framewithsupp
         var date = new Date();
         lineData = {
             time: date,
