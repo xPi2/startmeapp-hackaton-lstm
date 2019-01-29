@@ -277,10 +277,6 @@ socket.on('graph_data', function(msg) {
 
     function accumulative(value, frame) {
         pat = pat+value
-        imgframe = frame
-        var img = document.createElement('img');
-
-        img.src = frame;
         framewithsupp = 'data:image/jpeg;base64,' +(frame);
 
         document.getElementsByClassName('holderframe')[0].src= framewithsupp
