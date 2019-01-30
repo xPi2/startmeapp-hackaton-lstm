@@ -48,11 +48,12 @@ def clean_front():
 
 
 @socketio.on('message', namespace='/app')
-def send_to_front(value):
+def send_to_front(value, frame):
     emit('graph_data', {
         'date': time.strftime("%a %m/%d/%Y"),
         'time': time.strftime("%H:%M:%S"),
-        'value': value
+        'value': value,
+        'frame': frame
     }, namespace='/app', broadcast=True)
 
 
