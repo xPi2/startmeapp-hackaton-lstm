@@ -16,7 +16,7 @@ index_add_counter = 0
 @app.route('/')
 def index():
     global index_add_counter
-    return render_template('index.html')
+    return render_template('char.html')
 
 @app.route('/char')
 def char():
