@@ -99,8 +99,8 @@ if __name__ == '__main__':
         help='Force a color or list of colors, (--colors \'r, g, b, c, m, y, k, w\')'
     )
     parser.add_argument(
-        '--noescore', default=False, action="store_true",
-        help='Avoid printing prediction score on bboxes'
+        '--noscore', default=False, action="store_true",
+        help='Avoid printing prediction score probability on bboxes'
     )
     '''
     Command line positional arguments -- for video detection mode
