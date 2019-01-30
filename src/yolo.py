@@ -10,7 +10,6 @@ import requests
 import cv2
 import json
 import base64
-import io
 
 import numpy as np
 from PIL import Image, ImageFont, ImageDraw
@@ -22,6 +21,7 @@ from keras.layers import Input
 from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
 from keras.utils import multi_gpu_model
+from io import BytesIO
 
 class YOLO(object):
 
@@ -195,12 +195,16 @@ class YOLO(object):
                 draw.text(text_origin, label, fill=(255,255,255), font=font)
             del draw
 
-        encode_img = str(base64.b64encode(image.tobytes()))
+        buffered = BytesIO()
+        image.save(buffered, format="JPEG")
+        encode_img = str(base64.b64encode(buffered.getvalue()), 'UTF-8')
         # print(encode_img)
+
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
         # David function POST
         data = {
             "num_objects": len(out_boxes),
+            "objects": "patera",
             "frame": encode_img 
         }
 
@@ -249,10 +253,10 @@ def detect_video(yolo, webcam, video_path, output_path):
             accum_time = accum_time - 1
             fps = "FPS: " + str(curr_fps)
             curr_fps = 0
-        cv2.putText(result, text=fps, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale=0.50, color=(255, 0, 0), thickness=2)
-        cv2.namedWindow("result", cv2.WINDOW_NORMAL)
-        cv2.imshow("result", result)
+        # cv2.putText(result, text=fps, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+                    # fontScale=0.50, color=(255, 0, 0), thickness=2)
+        # cv2.namedWindow("result", cv2.WINDOW_NORMAL)
+        # cv2.imshow("result", result)
         if isOutput:
             out.write(result)
         if cv2.waitKey(1) & 0xFF == ord('q'):
