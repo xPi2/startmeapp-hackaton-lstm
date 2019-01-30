@@ -1,6 +1,9 @@
 # TheSeAI
 #Startmeapp Huawei y EL PAÍS RETINA se unen para lanzar el primer hackathon de Inteligencia Artificial. En este repositorio se puede encontrar la solución del equipo LSTM (finalista y compitiendo por el primer puesto) 
 
+![the-seai](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/theseai.gif)
+
+
 ## 1. Live web dashboard set-up
 1. Create environment
 ```
