@@ -1,6 +1,9 @@
 # TheSeAI
 #Startmeapp Huawei y EL PAÍS RETINA se unen para lanzar el primer hackathon de Inteligencia Artificial. En este repositorio se puede encontrar la solución del equipo LSTM (finalista y compitiendo por el primer puesto) 
 
+![the-seai](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/theseai.gif)
+
+
 ## 1. Live web dashboard set-up
 1. Create environment
 ```
@@ -10,7 +13,8 @@ pip install -r requirements.txt
 ```
 2. Start local server
 ```
-python ./real_time_dashboard/app.py
+cd ./real_time_dashboard
+python app.py
 ```
 
 ## 2. Deep Learning prediction set-up
@@ -19,6 +23,7 @@ python ./real_time_dashboard/app.py
 2. Move model files to `src/model_data`.
 3. Run YOLO detection specifying the trained model to use.
 ```
+cd ./src
 python predict.py [OPTIONS...] --image, for image detection mode,
 python predict.py [video_path] [output_path (optional)] for video detection mode OR
 python predict.py [--webcam] for webcam detection
@@ -47,9 +52,9 @@ optional arguments:
 
 customization arguments:
   --colors 'r, b, ...' Force bboxes colors to given list, current options (r, g, b, c, m, y, k, w)
-  --noescore           Avoid printing score on bboxes
+  --noscore           Avoid printing score on bboxes
 ```
 Example:
 ```
-python3 predict.py --model "model_data/set2_weights.h5" --anchors "model_data/set2_anchors.txt" --classes "model_data/pateras_classes.txt" --input "./predict_inputs/lesbos_mix.mp4"
+python3 predict.py --model "model_data/set2_weights.h5" --anchors "model_data/set2_anchors.txt" --classes "model_data/pateras_classes.txt" --input "./predict_inputs/lesbos_mix.mp4" --noscore --color "w"
 ```

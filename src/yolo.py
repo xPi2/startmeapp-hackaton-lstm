@@ -149,9 +149,8 @@ class YOLO(object):
                 K.learning_phase(): 0
             })
 
-        
 
-        font = ImageFont.truetype(font='Futura',
+        font = ImageFont.truetype(font='Arial.ttf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
 
@@ -159,7 +158,7 @@ class YOLO(object):
             predicted_class = self.class_names[c]
             box = out_boxes[i]
             score = out_scores[i]
-            if self.noescore:
+            if self.noscore:
                 label = '{}'.format(predicted_class)
             else:
                 label = '{} {:.2f}'.format(predicted_class, score)
@@ -195,16 +194,26 @@ class YOLO(object):
                 draw.text(text_origin, label, fill=(255,255,255), font=font)
             del draw
 
-        encode_img = str(base64.b64encode(image.tobytes()))
+        buffered = BytesIO()
+        image_post = Image.fromarray(cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR))
+        image_post.save(buffered, format="JPEG")
+
+        image_post = str(base64.b64encode(buffered.getvalue()), 'UTF-8')
+        # print(encode_img)
+
+        image_post = str(base64.b64encode(buffered.getvalue()), 'UTF-8')
         # print(encode_img)
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
         # David function POST
         data = {
             "num_objects": len(out_boxes),
-            "frame": encode_img 
+            "objects": "patera",
+            "frame": image_post 
         }
-
-        r = requests.post('http://localhost:5000/post/8', json=data)
+        try:
+            requests.post('http://localhost:5000/post/8', json=data, timeout=0.0000000001)
+        except requests.exceptions.ReadTimeout: 
+            pass
         end = timer()
         print(end - start)
         return image
@@ -249,10 +258,12 @@ def detect_video(yolo, webcam, video_path, output_path):
             accum_time = accum_time - 1
             fps = "FPS: " + str(curr_fps)
             curr_fps = 0
-        cv2.putText(result, text=fps, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale=0.50, color=(255, 0, 0), thickness=2)
-        cv2.namedWindow("result", cv2.WINDOW_NORMAL)
-        cv2.imshow("result", result)
+
+        #cv2.putText(result, text=fps, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+        #            fontScale=0.50, color=(255, 0, 0), thickness=2)
+        #cv2.namedWindow("result", cv2.WINDOW_NORMAL)
+        #cv2.imshow("result", result)
+
         if isOutput:
             out.write(result)
         if cv2.waitKey(1) & 0xFF == ord('q'):
