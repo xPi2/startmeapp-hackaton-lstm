@@ -10,7 +10,8 @@ pip install -r requirements.txt
 ```
 2. Start local server
 ```
-python ./real_time_dashboard/app.py
+cd ./real_time_dashboard
+python app.py
 ```
 
 ## 2. Deep Learning prediction set-up
@@ -19,6 +20,7 @@ python ./real_time_dashboard/app.py
 2. Move model files to `src/model_data`.
 3. Run YOLO detection specifying the trained model to use.
 ```
+cd ./src
 python predict.py [OPTIONS...] --image, for image detection mode,
 python predict.py [video_path] [output_path (optional)] for video detection mode OR
 python predict.py [--webcam] for webcam detection
