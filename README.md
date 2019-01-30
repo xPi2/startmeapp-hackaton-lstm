@@ -52,9 +52,9 @@ optional arguments:
 
 customization arguments:
   --colors 'r, b, ...' Force bboxes colors to given list, current options (r, g, b, c, m, y, k, w)
-  --noescore           Avoid printing score on bboxes
+  --noscore           Avoid printing score on bboxes
 ```
 Example:
 ```
-python3 predict.py --model "model_data/set2_weights.h5" --anchors "model_data/set2_anchors.txt" --classes "model_data/pateras_classes.txt" --input "./predict_inputs/lesbos_mix.mp4"
+python3 predict.py --model "model_data/set2_weights.h5" --anchors "model_data/set2_anchors.txt" --classes "model_data/pateras_classes.txt" --input "./predict_inputs/lesbos_mix.mp4" --noscore --color "w"
 ```
