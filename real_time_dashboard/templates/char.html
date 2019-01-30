@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <title>Dashboard Template for Bootstrap</title>
+        <title>SEAI Dashboard</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
         <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
@@ -20,8 +20,15 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        .bg-gray {
+        .cardstyle {
+            border: 1px solid #525252;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .bg-navbar {
             background-color: #525252;
+            border-bottom: 1px solid #333333;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         .text-blue {
             color: #0078FF;
@@ -147,7 +154,7 @@
       g.selectAll("g .legend text")
         .data(data)
         .text(function(d) {
-          return d.label.toUpperCase() + ": " + d.values[d.values.length-1].value;
+          return "DETECT: " + d.values[d.values.length-1].value;
         });
 
       // For transitions https://bl.ocks.org/mbostock/1642874
@@ -201,7 +208,7 @@
 </script>
 </body>
 
-    <nav class="navbar navbar-toggleable-md fixed-top bg-gray">
+    <nav class="navbar navbar-toggleable-md fixed-top bg-navbar">
       <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -213,7 +220,7 @@
         <main class="col-sm-12 col-md-12">
             <div class="row align-items-center p-5 mt-5 h-100">
                 <div class="col-sm-6 col-xs-11 col-md-6">
-                    <img class="holderframe img-fluid" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="image" />
+                    <img class="holderframe img-fluid cardstyle" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="image" />
                 </div>
                 <div class="col-sm-6 col-xs-12 col-md-6">
 <div id="chart"></div>
