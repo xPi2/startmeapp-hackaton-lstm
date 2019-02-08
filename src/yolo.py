@@ -209,8 +209,13 @@ class YOLO(object):
             "frame": image_post 
         }
         try:
+<<<<<<< HEAD
             requests.post('http://localhost:5000/post/8', json=data, timeout=0.00000001)
         except:
+=======
+            requests.post('http://localhost:5000/post/8', json=data, timeout=0.0000000001)
+        except requests.exceptions.ReadTimeout: 
+>>>>>>> 24be8b999792f0b323216219dc6da8c1cd5599ce
             pass
         end = timer()
         print(end - start)
