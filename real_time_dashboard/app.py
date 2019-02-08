@@ -16,7 +16,7 @@ index_add_counter = 0
 @app.route('/')
 def index():
     global index_add_counter
-    return render_template('index.html')
+    return render_template('char.html')
 
 @app.route('/char')
 def char():
@@ -48,11 +48,12 @@ def clean_front():
 
 
 @socketio.on('message', namespace='/app')
-def send_to_front(value):
+def send_to_front(value, frame):
     emit('graph_data', {
         'date': time.strftime("%a %m/%d/%Y"),
         'time': time.strftime("%H:%M:%S"),
-        'value': value
+        'value': value,
+        'frame': frame
     }, namespace='/app', broadcast=True)
 
 

@@ -10,7 +10,6 @@ import requests
 import cv2
 import json
 import base64
-import io
 
 import numpy as np
 from PIL import Image, ImageFont, ImageDraw
@@ -22,6 +21,7 @@ from keras.layers import Input
 from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
 from keras.utils import multi_gpu_model
+from io import BytesIO
 
 class YOLO(object):
 
@@ -201,8 +201,6 @@ class YOLO(object):
         image_post = str(base64.b64encode(buffered.getvalue()), 'UTF-8')
         # print(encode_img)
 
-        image_post = str(base64.b64encode(buffered.getvalue()), 'UTF-8')
-        # print(encode_img)
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
         # David function POST
         data = {
@@ -211,8 +209,8 @@ class YOLO(object):
             "frame": image_post 
         }
         try:
-            requests.post('http://localhost:5000/post/8', json=data, timeout=0.0000000001)
-        except requests.exceptions.ReadTimeout: 
+            requests.post('http://localhost:5000/post/8', json=data, timeout=0.00000001)
+        except:
             pass
         end = timer()
         print(end - start)

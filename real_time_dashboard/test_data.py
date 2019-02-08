@@ -3,41 +3,59 @@ import time
 
 import requests
 
-for x in range(1000):
+frame = "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"
+frame2 = "iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAM1BMVEX////87+/MAAD1z8/VLy/ZPz/yv7/SHx/539/sn5/fX1/PDw/ib2/lf3/pj4/cT0/vr69gdekIAAAEDElEQVR4Xu2a23LqMAxFJfl+yeX/v/YEAt01SfMU2Q+H9dShHfZCrmx5Av1PfPnyxXgaSLKyEWqkIRgrbyqPyC8CghmUDxL1hYNshNkn18XAlEwNk2zsr60FBpr1bg0eoUu7GlZ7vScCXjZiI2CZ1FhQY6yAuCY/kyJsYXAQSIL8HgYQCPr5gMPbAAJiTvJXo7zvJNRdlmM+l8JdDKI8WA/1ryJW22ClB0E2yme+kY2ZdA2KoY359BCwDyumHgZcTvIzCqBvsMoTyx/5jqiTQZYnZaUdfuaXSKokeRlgcxKXmChOu5sn6m/QjiVDDZCvb2B535G7DIaxOpGwzHwwiFnelIlJB85NRmtAnLLbqKvm+A+Cbw06wOFk/K4dDZx8UGkjdzFAtcPk04IadDJAAfIzJroTg4WUQQiWvkQYaE+DHgc8FkQcwUCq5vWfPRJ+GyQYFKO559r1NfxSuwqBnixa+YgKInJsy7cUW8V8Ly8sNcSChSeOpEeWHUctU/uivoGlFpYHpM1Fp7tuAmRPDWo/AT41cOhDFeK8uJz4TwMuukfAVDDuwyB9dEFSbz6Rem6QRHUFqoB8YsBV9/rhBRxr4NOrPrPu+BHqIs2nLt2uH/E9ZZnwO8o0BsHrDoCBUfeDQXF5JUUmrK8pZwaGgJZApAuDYtQFCtEQA5+dc/Mk4miEATvZgcAx04iOAYIgcG6QtAzYCgjU32C62OZWOTOIdBfYaXPKpwYJhYHBfP/9N6HeJwaoelK4Dtb9La8MioHPzZ/f7CdgpCuDpvNSurf8+SFgia4MWHX+yQ4jJgxMx4tHEZlOOr/jvQMCvQ3YQgB46W+wtH3X0wB9N8jAXBksNNbAsl7qPKX4YeBbA8187+RB5qu+SwsrX/8QCYNe299AA+S3Bn36DuOXzQGRXTvf/zzrnHsZcCLA4WzEVZg3wVwkfyyAp0OkyoMoPPDKzc5fsQciEgay0n3MslNRACnc5B8MkkLHhYQtSKbf+e5gcGf+gngc/8L4UfLPwkeiVInqvZ8f8TDIsJOMKpWcRRzfv+NkpgaOuPJZeMr9o3Asl/9RAXEwWG4/8urVdXBpZlD0x02Uy3e0qA7NIkU2rKEbMZcFYNnwaJYa07QqHDrT37+FQMQfdhaY0I9eSSC0qfPknMtzfAmIf/dAofuJ7YMWPzn5ITOV/Yc1ObXn30Ee2OR9eoWDYLL8JpICSS4oaxFQSQUrF9gV+Vnv2nnB5As+vxKxrYGtq8F33gLx7ERsjqTIHGTH1ZU/BjFDXYh+I57s0pJoHBn74BjmkQK4HIxegkgjwAZhaRzL4CbIOKhHwBmjwAh8kJE96B3Ov/5wsjIyPxV5MdMQ2OLLzyMNKhMNNHCGRsKeevHlyz90wygXkN4cUgAAAABJRU5ErkJggg=="
+
+for x in range(40):
+    time.sleep(0.1)
     data = {
-        "num_object": random.randint(1, 2),
-        "objects": "patera"
+        "num_objects": 1,
+        "objects": "patera",
+        "frame": frame
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
     print(x)
 
-for x in range(500):
+for x in range(50):
+    time.sleep(0.1)
     data = {
-        "num_object": 0,
-        "objects": "patera"
+        "num_objects": 2,
+        "objects": "patera",
+        "frame": frame2
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
     print(x)
 
-for x in range(700):
+for x in range(60):
+    time.sleep(0.1)
     data = {
-        "num_object": 1,
-        "objects": "patera"
+        "num_objects": 0,
+        "objects": "patera",
+        "frame": frame2
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
     print(x)
 
 for x in range(300):
+    time.sleep(0.1)
     data = {
-        "num_object": 0,
-        "objects": "patera"
+        "num_objects": 1,
+        "objects": "patera",
+        "frame": frame
+    }
+    print(data)
+    r = requests.post('http://localhost:5000/post/8', json=data)
+    print(x)
+
+for x in range(300):
+    time.sleep(0.1)
+    data = {
+        "num_objects": 0,
+        "objects": "patera",
+        "frame": frame
     }
     r = requests.post('http://localhost:5000/post/8', json=data)
     print(x)
 
 
 print("END!")
-
-time.sleep(2)
-r = requests.post('http://localhost:5000/clean/')
-print("CLEAN")
