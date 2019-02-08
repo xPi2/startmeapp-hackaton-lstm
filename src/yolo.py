@@ -150,7 +150,7 @@ class YOLO(object):
             })
 
 
-        font = ImageFont.truetype(font='arial.ttf',
+        font = ImageFont.truetype(font='Arial.ttf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
 
@@ -209,8 +209,8 @@ class YOLO(object):
             "frame": image_post 
         }
         try:
-            requests.post('http://localhost:5000/post/8', json=data, timeout=0.0000000001)
-        except requests.exceptions.ReadTimeout: 
+            requests.post('http://localhost:5000/post/8', json=data, timeout=0.00000001)
+        except:
             pass
         end = timer()
         print(end - start)
