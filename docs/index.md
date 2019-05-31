@@ -1,6 +1,6 @@
 # THE SEAI
 
-![Saving lifes with artificial intelligence](/images/savinglifes.png)
+![Saving lifes with artificial intelligence](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/docs/images/savinglifes.png)
 
 ## Why?
 **TheSeAI** aims to **detect** and **save** drifting boats before it’s **too late**.
@@ -13,7 +13,7 @@ This tool has the potential to **help NGOs** and civil search; rescuing operatio
 
 ---
 
-![Hey. We're on it](/images/wereonit.png)(https://youtu.be/cersrdiTEbo)
+[![Hey. We're on it](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/docs/images/wereonit.png)](https://youtu.be/cersrdiTEbo)
 
 ## How it Works?
 
@@ -39,6 +39,7 @@ Drones and satellites analyse the sea. The last step is to analyse the predictio
 
 ---
 ## TheSeAI Dashboard
+![dashboard](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/docs/images/theseai.gif)
 
 **TheSeAI** platform includes a **dashboard** where humans can see different metrics about what the A.I. is **detecting**.
 The platform will trigger an **alert** in case **one or more dinghies are detected** during a certain span of time.
@@ -46,11 +47,8 @@ Inside the platform, a real time video streaming of the drone's view is displaye
 
 > *“Execute our **algorithm, detect in real time** and get a the information in a **Dashboard in any device**”*
 
-
-![dashboard](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/theseai.gif)
 ---
-
-![desperatejourneys]()
+![Desperate journeys](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/docs/images/desperatejourney.png)
 
 ## Impact
 Thousands of people are still trying to **reach Europe** searching **international protection** and **family reunification**.
@@ -59,4 +57,4 @@ We must make sure, each trip to Europe is **safe**.
 
 If you want to find more information visit [DESPERATE JOURNEYS](https://www.unhcr.org/desperatejourneys/)
 
-![Join us](joinus.png)(github)
+[![Join us](https://github.com/XPi2/startmeapp-hackaton-lstm/blob/master/docs/images/joinus.png)](https://github.com/XPi2/startmeapp-hackaton-lstm)
