@@ -1,3 +1,6 @@
+---
+layout: default
+---
 # THE SEAI
 
 ![Saving lifes with artificial intelligence](https://raw.githubusercontent.com/XPi2/startmeapp-hackaton-lstm/master/docs/images/savinglifes.png)
